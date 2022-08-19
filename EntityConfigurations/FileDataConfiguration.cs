@@ -4,11 +4,11 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace CoreProject.EntityConfigurations
 {
-    public class LubeInfoConfiguration : IEntityTypeConfiguration<LubeInfo>
+    public class FileDataConfiguration : IEntityTypeConfiguration<FileData>
     {
-        public void Configure(EntityTypeBuilder<LubeInfo> builder)
+        public void Configure(EntityTypeBuilder<FileData> builder)
         {
-            builder.ToTable("LubeInfos");
+            builder.ToTable("file_data");
             builder.HasKey(x => x.Id);
 
             builder.Property(x => x.Id)
@@ -16,23 +16,14 @@ namespace CoreProject.EntityConfigurations
                 .HasMaxLength(32)
                 .IsRequired();
 
-            builder.Property(x => x.Type)
-                .HasColumnName("type");
+            builder.Property(x => x.Data)
+                .HasColumnName("data");
 
-            builder.Property(x => x.No)
-                .HasColumnName("no");
+            builder.Property(x => x.Name)
+                .HasColumnName("name");
 
-            builder.Property(x => x.Model)
-                .HasColumnName("model");
-
-            builder.Property(x => x.Unit)
-            .HasColumnName("unit");
-
-            builder.Property(x => x.Brand)
-             .HasColumnName("brand");
-
-            builder.Property(x => x.Remark)
-                .HasColumnName("remark");
+            builder.Property(x => x.FileFormat)
+                .HasColumnName("file_format");
 
             builder.Property(x => x.CreateDate)
            .HasColumnName("create_date");

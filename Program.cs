@@ -15,7 +15,8 @@ builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
 
 builder.Host.ConfigureContainer<ContainerBuilder>(container => { 
     container.RegisterType<ShipService>().As<IShipService>();
-    container.RegisterType<LoginService>().As<ILoginService>();
+    container.RegisterType<UserService>().As<IUserService>();
+    container.RegisterType<FileService>().As<IFileService>();
 });
 
 #endregion

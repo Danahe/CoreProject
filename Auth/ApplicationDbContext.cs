@@ -8,13 +8,13 @@ namespace CoreProject.Auth
 {
     public  class ApplicationDbContext
     {
-        public static string CreateToken()
+        public static string CreateToken(string mobile,string password)
         {
             // 1. 定义需要使用到的Claims
             var claims = new[]
             {
-                new Claim("Id", "9527"),
-                new Claim("Name", "Admin")
+                new Claim(ClaimTypes.MobilePhone, mobile),
+                new Claim("password", password)
             };
 
             // 2. 从 appsettings.json 中读取SecretKey

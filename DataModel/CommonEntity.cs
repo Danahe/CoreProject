@@ -3,9 +3,9 @@
     public class CommonEntity
     {
         public string Id { get; set; } = "";
-        public DateTime CreatDate { get; set; }
-        public DateTime ModifyDate { get; set; }
-        public bool DeleteFlag { get; set; }
-        public bool PushFlag { get; set; }
+        public DateTime CreateDate { get; set; } = DateTime.Now;
+        public DateTime ModifyDate { get; set; } = DateTime.Now;
+        public bool DeleteFlag { get; set; } = false;
+        public bool PushFlag { get; set; } = false;
     }
 }

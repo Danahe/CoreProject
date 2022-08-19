@@ -11,28 +11,28 @@ namespace CoreProject.EntityConfigurations
             builder.ToTable("ships");
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Id)
-                .HasColumnName("Id")
+                .HasColumnName("id")
                 .IsRequired();
             builder.Property(x => x.Name)
-                .HasColumnName("Name");
+                .HasColumnName("name");
             builder.Property(x => x.ShipCode)
-                .HasColumnName("ShipCode");
+                .HasColumnName("ship_code");
             builder.Property(x => x.TypeName)
-                .HasColumnName("TypeName");
+                .HasColumnName("type_name");
             builder.Property(x => x.StatusName)
-                .HasColumnName("StatusName");
+                .HasColumnName("status_name");
             builder.Property(x => x.Owner)
-                .HasColumnName("Owner");
-            builder.Property(x => x.CreatDate)
-                .HasColumnName("CreatDate");
+                .HasColumnName("owner");
+            builder.Property(x => x.CreateDate)
+                .HasColumnName("create_date");
             builder.Property(x => x.ModifyDate)
-                .HasColumnName("ModifyDate");
+                .HasColumnName("modify_date");
             builder.Property(x => x.PushFlag)
-                .HasColumnName("PushFlag");
+                .HasColumnName("push_flag");
             builder.Property(x => x.Type)
-                .HasColumnName("Type");
+                .HasColumnName("type");
             builder.Property(x => x.DeleteFlag)
-                .HasColumnName("DeleteFlag");
+                .HasColumnName("delete_flag");
         }
     }
 }
