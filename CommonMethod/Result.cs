@@ -31,4 +31,47 @@
             };
         }
     }
+
+    public class Result
+    {
+        public int Code { get; set; }
+        public string Message { get; set; } = "";
+        public object? Data { get; set; } = new object();
+
+        public Result SetResult(int code, string message, object data)
+        {
+            Code = code;
+            Message = message;
+            Data = data;
+            return this;
+        }
+
+        Result Success() => new Result()
+        {
+            Code = 200,
+            Message = "success",
+            Data = (object)null
+        };
+
+        public static Result Success(object data) => new Result()
+        {
+            Data = data,
+            Code = 200,
+            Message = "success"
+        };
+
+        public static Result Fail(string message) => new Result()
+        {
+            Code = 500,
+            Message = message,
+            Data = null
+        };
+
+        public static Result NoAuth() => new Result()
+        {
+            Code = 401,
+            Message = "未通过认证",
+            Data = null
+        };
+    }
 }
