@@ -5,6 +5,7 @@ using CoreProject.Service;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using CoreProject.CommonMethod;
 
 namespace CoreProject.Controllers
 {
@@ -23,29 +24,41 @@ namespace CoreProject.Controllers
             _shipService=shipService;
         }
 
-        [HttpGet]
-        [Route("get")]
-        public async Task<IActionResult> GetAnnualPartForm()
-        {
-            var con = AppSettingsHelper.Configuration["ConnectionStrings:DefaultConnection"];
-            var model =  await _context.Ships.FirstOrDefaultAsync();
-            return Ok(model);
-        }
-
-        [HttpGet]
-        [Route("get-lube")]
-        public async Task<IActionResult> GetLube()
-        {
-            var model = await _context.LubeInfos.FirstOrDefaultAsync();
-            return Ok(model);
-        }
-
         [HttpPost]
         [Route("save")]
         public async Task<IActionResult> SaveLube(LubeInfo request)
         {
             var res = await _shipService.SaveLube(request);
             return Ok(res);
+        }
+
+        /// <summary>
+        /// 详情
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("find")]
+        public async Task<IActionResult> FindAsync(string id)
+        {
+            if (string.IsNullOrWhiteSpace(id)) return Ok(Result.Fail("参数不能为空"));
+            var res = await _shipService.FindAsync(id);
+            return Ok(new APIResult<ShipInfo>(res));
+        }
+
+        /// <summary>
+        /// 列表
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="page"></param>
+        /// <param name="rows"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("query")]
+        public async Task<IActionResult> QueryAsync(string name, int page, int rows)
+        {
+            var res = await _shipService.QueryAsync(name);
+            return Ok(new APIPageResult<ShipInfo>(res, page, rows));
         }
     }
 }

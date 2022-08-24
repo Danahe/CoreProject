@@ -1,6 +1,6 @@
 ﻿namespace CoreProject.CommonMethod
 {
-    public class APIResult<T> : ResultMsg
+    public class APIResult<T> : Result
     {
         /// <summary>
         /// 返回数据使用

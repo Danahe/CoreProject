@@ -3,12 +3,13 @@ using CoreProject.DtoModel;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using CoreProject.CommonMethod;
 
 namespace CoreProject.IService
 {
     public interface IUserService
     {
-        Task<bool> SaveUserAsync(UserItem request);
+        Task<Result> SaveUserAsync(UserItem request);
 
         Task<string> LoginAsync(string mobile, string password);
 

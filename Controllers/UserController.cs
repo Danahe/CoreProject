@@ -41,7 +41,7 @@ namespace CoreProject.Controllers
         [Route("find")]
         public async Task<IActionResult> FindAsync(string id)
         {
-            if (string.IsNullOrWhiteSpace(id)) return Ok(ResultMsg.Fail("参数不能为空"));
+            if (string.IsNullOrWhiteSpace(id)) return Ok(Result.Fail("参数不能为空"));
             var res = await _userService.FindAsync(id);
             return Ok(new APIResult<UserItem>(res));
         }

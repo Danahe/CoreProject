@@ -36,12 +36,12 @@ namespace CoreProject.Service
             return token;
         }
 
-        public async Task<bool> SaveUserAsync(UserItem request)
+        public async Task<Result> SaveUserAsync(UserItem request)
         {
             if (string.IsNullOrWhiteSpace(request.Id))
             {
                 var haveModel = await _context.Users.Where(x => x.Mobile == request.Mobile && x.DeleteFlag == false).FirstOrDefaultAsync();
-                if (haveModel is not null) return false;
+                if (haveModel is not null) return Result.Fail("未找到数据");
                 var addModel = new User()
                 {
                     Id = SystemCommonMethod.GetGuid(),
@@ -54,7 +54,7 @@ namespace CoreProject.Service
             else
             {
                 var model = await _context.Users.Where(x => x.Id == request.Id).FirstOrDefaultAsync();
-                if (model is null) return false;
+                if (model is null) return Result.Fail("未找到数据");
                 model.Name = request.Name;
                 model.Mobile = request.Mobile;
                 model.Password = SystemCommonMethod.MD5Encryption(request.Password);
@@ -63,7 +63,7 @@ namespace CoreProject.Service
                 _context.Update(model);
             }
             await _context.SaveChangesAsync();
-            return true;
+            return Result.Success("提交成功");
         }
     }
 }

@@ -29,7 +29,7 @@ namespace CoreProject.Controllers
         [Route("upload")]
         public async Task<IActionResult> UploadAsync([FromForm] FileUploadRequest request)
         {
-            if (request.Data is null) return Ok(ResultMsg.Fail("未找到数据"));
+            if (request.Data is null) return Ok(Result.Fail("未找到数据"));
             var res = await _fileService.FileUpload(request);
             return Ok(new APIResult<FileUploadReply>(res));
         }
@@ -43,9 +43,9 @@ namespace CoreProject.Controllers
         [Route("download")]
         public async Task<IActionResult> DownLoadAsync(string id)
         {
-            if (string.IsNullOrWhiteSpace(id)) return Ok(ResultMsg.Fail("参数不能为空"));
+            if (string.IsNullOrWhiteSpace(id)) return Ok(Result.Fail("参数不能为空"));
             var model = await _fileService.FindAsync(id);
-            if (model is null) return Ok(ResultMsg.Fail("未找到文件"));
+            if (model is null) return Ok(Result.Fail("未找到文件"));
             return File(model.Data, MimeUtility.GetMimeMapping(model.FileFormat), model.Name);
         }
     }
