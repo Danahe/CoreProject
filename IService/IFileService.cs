@@ -3,6 +3,7 @@ using CoreProject.DtoModel;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using CoreProject.CommonMethod;
 
 namespace CoreProject.IService
 {
@@ -11,5 +12,7 @@ namespace CoreProject.IService
         Task<FileUploadReply> FileUpload(FileUploadRequest request);
 
         Task<FileData> FindAsync(string id);
+
+        Task<Result> FilesUploadAsync(List<IFormFile> files);
     }
 }

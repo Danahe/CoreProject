@@ -53,5 +53,35 @@ namespace CoreProject.Service
             if (model is null) return null;
             return model;
         }
+
+        public async Task<Result> FilesUploadAsync(List<IFormFile> files)
+        {
+            foreach (var item in files)
+            {
+                var fileName = item.FileName;
+                var fileNameEx = System.IO.Path.GetExtension(fileName);
+                var size = item.Length;
+                var stream = new MemoryStream();
+                await item.CopyToAsync(stream);
+                byte[]? data = null;
+                data = new byte[stream.Length];
+                stream.Seek(0, SeekOrigin.Begin);
+                await stream.ReadAsync(data, 0, data.Length);
+                stream.Seek(0, SeekOrigin.Begin);
+                stream.Close();
+
+                var addModel = new FileData()
+                {
+                    Id = SystemCommonMethod.GetGuid(),
+                    Data = data,
+                    Name = fileName,
+                    FileFormat = fileNameEx,
+                };
+                await _context.AddAsync(addModel);
+            }
+
+            await _context.SaveChangesAsync();
+            return Result.Success("上传成功");
+        }
     }
 }

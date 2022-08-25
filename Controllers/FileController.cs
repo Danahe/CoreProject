@@ -48,5 +48,13 @@ namespace CoreProject.Controllers
             if (model is null) return Ok(Result.Fail("未找到文件"));
             return File(model.Data, MimeUtility.GetMimeMapping(model.FileFormat), model.Name);
         }
+
+        [HttpPost]
+        [Route("upload-files")]
+        public async Task<IActionResult> UploadFilesAsync(List<IFormFile> files)
+        {
+            var res = await _fileService.FilesUploadAsync(files);
+            return Ok(res);
+        }
     }
 }
