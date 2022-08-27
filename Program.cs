@@ -10,7 +10,7 @@ using System.Text;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
-#region ÒÀÀµ×¢Èë
+#region ä¾èµ–æ³¨å…¥
 builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
 
 builder.Host.ConfigureContainer<ContainerBuilder>(container => { 
@@ -29,17 +29,17 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(s=>
 {
-    //Ìí¼Ó°²È«¶¨Òå
+    //æ·»åŠ å®‰å…¨å®šä¹‰
     s.AddSecurityDefinition("Bearer", new Microsoft.OpenApi.Models.OpenApiSecurityScheme
     {
-        Description = "ÇëÊäÈëtoken£¬¸ñÊ½Îª Bearer xxxxxxxxx(×¢ÒâÖĞ¼ä±ØĞëÓĞ¿Õ¸ñ)",
+        Description = "è¯·è¾“å…¥tokenï¼Œæ ¼å¼ä¸º Bearer xxxxxxxxx(æ³¨æ„ä¸­é—´å¿…é¡»æœ‰ç©ºæ ¼)",
         Name = "Authorization",
         In = Microsoft.OpenApi.Models.ParameterLocation.Header,
         Type = Microsoft.OpenApi.Models.SecuritySchemeType.ApiKey,
         BearerFormat = "JWT",
         Scheme = "Bearer",
     });
-    //Ìí¼Ó°²È«ÒªÇó
+    //æ·»åŠ å®‰å…¨è¦æ±‚
     s.AddSecurityRequirement(new OpenApiSecurityRequirement {
         {
             new OpenApiSecurityScheme{
