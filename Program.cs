@@ -7,6 +7,7 @@ using CoreProject.IService;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using CoreProject.Middlewares;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -82,6 +83,9 @@ if (app.Environment.IsDevelopment())
         c.DefaultModelExpandDepth(-1);
     });
 }
+
+//全局异常处理
+app.UseMiddleware<ExceptionHandlingMiddleware>();
 
 app.UseHttpsRedirection();
 
