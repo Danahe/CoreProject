@@ -5,6 +5,7 @@ using CoreProject.Service;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using CoreProject.CommonMethod;
+using NLog.Extensions.Logging;
 
 namespace CoreProject.Controllers
 {
@@ -13,10 +14,12 @@ namespace CoreProject.Controllers
     public class UserController : ControllerBase
     {
         private readonly IUserService _userService;
+        private readonly ILogger<UserController> _logger;
 
-        public UserController(IUserService userService)
+        public UserController(IUserService userService, ILogger<UserController> logger)
         {
             _userService = userService;
+            _logger = logger;
         }
 
         [HttpGet]
@@ -41,6 +44,9 @@ namespace CoreProject.Controllers
         [Route("find")]
         public async Task<IActionResult> FindAsync(string id)
         {
+            NLog.LogManager.GetCurrentClassLogger().Info("这是错误信息");
+            _logger.LogInformation("eee");
+            _logger.LogError("fff");
             if (string.IsNullOrWhiteSpace(id)) return Ok(Result.Fail("参数不能为空"));
             var res = await _userService.FindAsync(id);
             return Ok(new APIResult<UserItem>(res));

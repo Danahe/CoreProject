@@ -9,6 +9,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using CoreProject.Middlewares;
 using Microsoft.OpenApi.Models;
+using NLog.Extensions.Logging;
 
 var builder = WebApplication.CreateBuilder(args);
 #region 依赖注入
@@ -71,6 +72,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
     };
 });
 
+builder.Services.AddLogging(m => { m.AddNLog(); });
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
